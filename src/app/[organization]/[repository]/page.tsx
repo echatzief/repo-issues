@@ -10,7 +10,10 @@ type Params = {
 
 type SearchParams = {
   state: string;
+  first: string;
   after: string;
+  last: string;
+  before: string;
 };
 
 export default async function Page({
@@ -21,14 +24,27 @@ export default async function Page({
   searchParams: SearchParams;
 }) {
   const { organization, repository } = params;
-  const { state, after } = searchParams;
+  const { state, first, after, last, before } = searchParams;
   const queryParams = [];
 
   if (state) {
     queryParams.push(`state=${state}`);
   }
+
+  if (first) {
+    queryParams.push(`first=${first}`);
+  }
+
   if (after) {
     queryParams.push(`after=${after}`);
+  }
+
+  if (last) {
+    queryParams.push(`last=${last}`);
+  }
+
+  if (before) {
+    queryParams.push(`before=${before}`);
   }
 
   const res = await fetch(

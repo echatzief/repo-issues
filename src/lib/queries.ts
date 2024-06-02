@@ -5,13 +5,17 @@ export const ISSUES_QUERY = gql`
     $owner: String!
     $name: String!
     $states: [IssueState!] = [CLOSED, OPEN]
-    $page: Int!
-    $cursor: String
+    $first: Int
+    $last: Int
+    $after: String
+    $before: String
   ) {
     repository(owner: $owner, name: $name) {
       issues(
-        first: $page
-        after: $cursor
+        first: $first, 
+        last: $last, 
+        after: $after, 
+        before: $before
         states: $states
         orderBy: { field: CREATED_AT, direction: DESC }
       ) {
@@ -31,7 +35,9 @@ export const ISSUES_QUERY = gql`
           }
         }
         pageInfo {
+          hasPreviousPage
           hasNextPage
+          startCursor
           endCursor
         }
       }

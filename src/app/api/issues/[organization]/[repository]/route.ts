@@ -13,7 +13,11 @@ export async function GET(request: Request, context: { params: Params }) {
   const url = new URL(request.url);
   const searchParams = new URLSearchParams(url.searchParams);
   const state = searchParams.get("state") || "all";
+  const first = searchParams.get("first");
   const after = searchParams.get("after");
+  const last = searchParams.get("last");
+  const before = searchParams.get("before");
+
   const { organization, repository } = context.params;
   if (!organization || !repository) {
     return NextResponse.json(
@@ -29,8 +33,10 @@ export async function GET(request: Request, context: { params: Params }) {
         owner: organization,
         name: repository,
         states: getStateFromParam(state),
-        page: PAGE_SIZE,
-        cursor: after,
+        first: !first && !last ? PAGE_SIZE : (first ? parseInt(first) : null),
+        after: after || null,
+        last: last ? parseInt(last) : null,
+        before: before || null,
       },
     });
 
