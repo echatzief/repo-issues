@@ -1,14 +1,17 @@
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import PaginationControl from "@/components/PaginationControl";
 
 dayjs.extend(relativeTime);
 
 type Props = {
   issues: FormattedIssues[];
+  pagination: PageInfo;
 };
 
 export default function IssuesTable(props: Props) {
-  const { issues } = props;
+  const { issues, pagination } = props;
+
   return (
     <div className="flex justify-center align-items w-full mt-5">
       <div className="flex flex-col w-full max-w-[58rem]">
@@ -61,6 +64,7 @@ export default function IssuesTable(props: Props) {
             </div>
           </a>
         ))}
+        {issues.length > 0 && <PaginationControl pagination={pagination} />}
       </div>
     </div>
   );

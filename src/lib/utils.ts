@@ -9,6 +9,7 @@ export const getIssuesFromResponse = (
       data.repository.issues.edges) ||
     [];
   return edges.map((e) => ({
+    cursor: e.cursor,
     id: e.node.id,
     number: e.node.number,
     title: e.node.title,

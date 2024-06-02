@@ -1,14 +1,22 @@
 import { gql } from "@apollo/client";
 
 export const ISSUES_QUERY = gql`
-  query ($owner: String!, $name: String!, $states: [IssueState!] = [CLOSED, OPEN]) {
+  query (
+    $owner: String!
+    $name: String!
+    $states: [IssueState!] = [CLOSED, OPEN]
+    $page: Int!
+    $cursor: String
+  ) {
     repository(owner: $owner, name: $name) {
       issues(
-        first: 10
-        orderBy: { field: CREATED_AT, direction: DESC }
+        first: $page
+        after: $cursor
         states: $states
+        orderBy: { field: CREATED_AT, direction: DESC }
       ) {
         edges {
+          cursor
           node {
             id
             number
@@ -19,9 +27,6 @@ export const ISSUES_QUERY = gql`
             state
             author {
               login
-            }
-            comments {
-              totalCount
             }
           }
         }

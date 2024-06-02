@@ -5,19 +5,42 @@ import { BASE_INTERAL_API_URL } from "@/lib/config";
 type Params = {
   organization: string;
   repository: string;
+  state: string;
 };
 
 type SearchParams = {
   state: string;
-}
+  after: string;
+};
 
-export default async function Page({ params, searchParams }: { params: Params, searchParams: SearchParams }) {
+export default async function Page({
+  params,
+  searchParams,
+}: {
+  params: Params;
+  searchParams: SearchParams;
+}) {
   const { organization, repository } = params;
-  const { state } = searchParams;
+  const { state, after } = searchParams;
+  const queryParams = [];
+
+  if (state) {
+    queryParams.push(`state=${state}`);
+  }
+  if (after) {
+    queryParams.push(`after=${after}`);
+  }
+
   const res = await fetch(
-    `${BASE_INTERAL_API_URL}/issues/${organization}/${repository}?state=${state || 'all'}`
+    `${BASE_INTERAL_API_URL}/issues/${organization}/${repository}?${queryParams.join(
+      "&"
+    )}`
   );
-  const { issues }: { issues: FormattedIssues[] } = await res.json();
+
+  const {
+    issues,
+    pagination,
+  }: { issues: FormattedIssues[]; pagination: PageInfo } = await res.json();
 
   return (
     <div className="flex p-5 min-h-screen">
@@ -25,8 +48,9 @@ export default async function Page({ params, searchParams }: { params: Params, s
         <OrganizationForm
           defaultOrganization={organization}
           defaultRepository={repository}
+          defaultState={state}
         />
-        <IssuesTable issues={issues}/>
+        <IssuesTable issues={issues} pagination={pagination} />
       </div>
     </div>
   );

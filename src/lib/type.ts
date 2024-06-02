@@ -10,10 +10,19 @@ type Repository = {
 type Issues = {
   __typename: string;
   edges: Edge[];
+  pageInfo: PageInfo;
+};
+
+type PageInfo = {
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
+  startCursor: string;
+  endCursor: string;
 };
 
 type Edge = {
   __typename: string;
+  cursor: string;
   node: EdgeNode;
 };
 
@@ -40,14 +49,14 @@ type Comments = {
   totalCount: number;
 };
 
-
 type FormattedIssues = {
+  cursor: string;
   id: string;
   number: number;
   title: string;
   url: string;
-  state: 'OPEN' | 'CLOSED';
+  state: "OPEN" | "CLOSED";
   author: string;
   createdAt: string;
   updatedAt: string;
-}
+};
