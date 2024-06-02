@@ -1,12 +1,15 @@
-export default function Home() {
+import OrganizationForm from "@/components/OrganizationForm";
+import Guide from "@/components/Guide";
+import TopRepositories from "@/components/TopRepositories";
+
+export default function Page() {
   return (
-    <>
-      description
-      <button className="btn">Button</button>
-      <label className="input input-bordered flex items-center gap-2">
-        Name
-        <input type="text" className="grow" placeholder="Daisy" />
-      </label>
-    </>
+    <div className="flex p-5 min-h-screen">
+      <div className="w-full">
+        <OrganizationForm />
+        <Guide />
+        <TopRepositories />
+      </div>
+    </div>
   );
 }
