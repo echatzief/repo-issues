@@ -1,5 +1,5 @@
 export const BASE_URL = "https://api.github.com/graphql";
-export const GITHUB_TOKEN = "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";
+export const GITHUB_TOKEN = "";
 
 export const BASE_INTERAL_API_URL = "http://localhost:3000/api";
 
