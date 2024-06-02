@@ -1,5 +1,3 @@
-import type { Metadata } from "next";
-
 import "./globals.css";
 
 export default function RootLayout({
@@ -11,7 +9,7 @@ export default function RootLayout({
     <html lang="en" data-theme="light">
       <head>
         <title>Repository Issues</title>
-        <link rel="icon" href="/favicon.png" type="image/png"/>
+        <link rel="icon" href="/favicon.png" type="image/png" />
       </head>
       <body>{children}</body>
     </html>

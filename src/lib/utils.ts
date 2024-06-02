@@ -17,7 +17,7 @@ export const getIssuesFromResponse = (
     state: e.node.state as "OPEN" | "CLOSED",
     author: e.node.author.login,
     createdAt: e.node.createdAt,
-    updatedAt: e.node.updatedAt
+    updatedAt: e.node.updatedAt,
   }));
 };
 

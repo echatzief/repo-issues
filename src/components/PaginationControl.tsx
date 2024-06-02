@@ -1,8 +1,7 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback } from "react";
-import { start } from "repl";
+import { PAGE_SIZE } from "@/lib/config";
 
 type Props = {
   pagination: PageInfo;
@@ -10,38 +9,39 @@ type Props = {
 
 export default function PaginationControl(props: Props) {
   const { pagination } = props;
+
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const handleDirection = (
+  const handlePagination = (
     first: number | null,
     after: string | null,
     last: number | null,
     before: string | null
   ) => {
     const params = new URLSearchParams(searchParams.toString());
-    if(first){
-      params.set('first', first.toString());
+    if (first) {
+      params.set("first", first.toString());
     } else {
-      params.delete('first');
+      params.delete("first");
     }
 
-    if(after){
-      params.set('after', after.toString());
+    if (after) {
+      params.set("after", after.toString());
     } else {
-      params.delete('after');
+      params.delete("after");
     }
 
-    if(last){
-      params.set('last', last.toString());
+    if (last) {
+      params.set("last", last.toString());
     } else {
-      params.delete('last');
+      params.delete("last");
     }
-    if(before){
-      params.set('before', before.toString());
+    if (before) {
+      params.set("before", before.toString());
     } else {
-      params.delete('before');
+      params.delete("before");
     }
     router.push(pathname + "?" + params.toString());
   };
@@ -51,14 +51,18 @@ export default function PaginationControl(props: Props) {
       <button
         className="btn btn-success w-[100px]"
         disabled={!pagination.hasPreviousPage}
-        onClick={() => handleDirection(null, null, 5, pagination.startCursor)}
+        onClick={() =>
+          handlePagination(null, null, PAGE_SIZE, pagination.startCursor)
+        }
       >
         Previous
       </button>
       <button
         className="btn btn-success w-[100px]"
         disabled={!pagination.hasNextPage}
-        onClick={() => handleDirection(5, pagination.endCursor, null, null)}
+        onClick={() =>
+          handlePagination(PAGE_SIZE, pagination.endCursor, null, null)
+        }
       >
         Next
       </button>

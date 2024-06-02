@@ -10,11 +10,13 @@ type Props = {
 };
 
 export default function OrganizationForm(props: Props) {
-  const router = useRouter();
   const { defaultOrganization, defaultRepository, defaultState } = props;
+
   const [organization, setOrganization] = useState(defaultOrganization || "");
   const [repository, setRepository] = useState(defaultRepository || "");
   const [state, setState] = useState(defaultState || "all");
+
+  const router = useRouter();
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -51,7 +53,11 @@ export default function OrganizationForm(props: Props) {
         </label>
       </div>
       <div className="flex">
-        <select className="select select-bordered w-full" value={state} onChange={(e) => setState(e.target.value)}>
+        <select
+          className="select select-bordered w-full"
+          value={state}
+          onChange={(e) => setState(e.target.value)}
+        >
           <option value={"all"}>All Issues</option>
           <option value={"open"}>Open Issues</option>
           <option value={"closed"}>Closed Issues</option>

@@ -12,9 +12,9 @@ export const ISSUES_QUERY = gql`
   ) {
     repository(owner: $owner, name: $name) {
       issues(
-        first: $first, 
-        last: $last, 
-        after: $after, 
+        first: $first
+        last: $last
+        after: $after
         before: $before
         states: $states
         orderBy: { field: CREATED_AT, direction: DESC }

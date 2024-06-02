@@ -12,8 +12,8 @@ export const { getClient, query, PreloadQuery } = registerApolloClient(() => {
     link: new HttpLink({
       uri: BASE_URL,
       headers: {
-        'Authorization': `Bearer ${GITHUB_TOKEN}`
-      }
+        Authorization: `Bearer ${GITHUB_TOKEN}`,
+      },
     }),
   });
 });

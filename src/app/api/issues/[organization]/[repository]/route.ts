@@ -33,7 +33,7 @@ export async function GET(request: Request, context: { params: Params }) {
         owner: organization,
         name: repository,
         states: getStateFromParam(state),
-        first: !first && !last ? PAGE_SIZE : (first ? parseInt(first) : null),
+        first: !first && !last ? PAGE_SIZE : first ? parseInt(first) : null,
         after: after || null,
         last: last ? parseInt(last) : null,
         before: before || null,

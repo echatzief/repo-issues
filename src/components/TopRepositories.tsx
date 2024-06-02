@@ -6,8 +6,10 @@ import { TOP_REPOSITORIES } from "@/lib/config";
 
 export default function TopRepositories() {
   const router = useRouter();
+
   const handleRedirect = (organization: string, repository: string) =>
     router.push(`/${organization}/${repository}?state=all`);
+
   return (
     <div className="flex justify-center align-items w-full mt-5">
       <div className="flex flex-col w-full max-w-[58rem]">
