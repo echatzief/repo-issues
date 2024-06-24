@@ -1,6 +1,6 @@
 # Repository Issues
 
-This project is a tool for managing GitHub repository issues. It allows users to view, create, update, and close issues directly from the app.
+This project is a tool for managing GitHub repository issues. It allows users to view and query repository issues directly from the app.
 
 ## Requirements
 
